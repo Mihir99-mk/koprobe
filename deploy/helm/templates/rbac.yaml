@@ -1,0 +1,69 @@
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ include "koprobe.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "koprobe.name" . }}
+
+---
+# ClusterRole: needs read access to pods across all namespaces
+# to map cgroup IDs → pod metadata
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ include "koprobe.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "koprobe.name" . }}
+rules:
+  - apiGroups: [""]
+    resources: ["pods", "nodes", "namespaces"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: [""]
+    resources: ["nodes/proxy"]
+    verbs: ["get"]
+  - apiGroups: ["apps"]
+    resources: ["deployments", "daemonsets", "replicasets", "statefulsets"]
+    verbs: ["get", "list", "watch"]
+  - apiGroups: ["metrics.k8s.io"]
+    resources: ["pods", "nodes"]
+    verbs: ["get", "list"]
+
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ include "koprobe.fullname" . }}
+  labels:
+    app.kubernetes.io/name: {{ include "koprobe.name" . }}
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ include "koprobe.fullname" . }}
+subjects:
+  - kind: ServiceAccount
+    name: {{ include "koprobe.fullname" . }}
+    namespace: {{ .Release.Namespace }}
+
+---
+# Service for Prometheus scraping
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "koprobe.fullname" . }}-metrics
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app.kubernetes.io/name: {{ include "koprobe.name" . }}
+spec:
+  selector:
+    app.kubernetes.io/name: {{ include "koprobe.name" . }}
+    app.kubernetes.io/component: agent
+  ports:
+    - name: metrics
+      port: {{ .Values.metrics.port }}
+      targetPort: metrics
+    - name: api
+      port: {{ .Values.api.port }}
+      targetPort: api
+  type: ClusterIP
