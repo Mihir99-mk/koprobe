@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>koprobe — Helm Chart Repository</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:monospace;max-width:720px;margin:60px auto;padding:0 24px;background:#0d1117;color:#c9d1d9}
+    h1{color:#58a6ff;font-size:2rem;margin-bottom:.5rem}
+    .sub{color:#8b949e;margin-bottom:2rem;font-size:.9rem}
+    h3{color:#e6edf3;margin:1.5rem 0 .5rem;font-size:1rem}
+    pre{background:#161b22;border:1px solid #30363d;padding:16px;border-radius:8px;overflow-x:auto;line-height:1.8;font-size:.85rem}
+    .badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:.75rem;margin:.5rem .25rem 0 0}
+    .b-blue{background:#1f4e79;color:#58a6ff}
+    .b-green{background:#1a3a2a;color:#3fb950}
+    a{color:#58a6ff;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .footer{margin-top:3rem;padding-top:1rem;border-top:1px solid #30363d;color:#8b949e;font-size:.8rem}
+  </style>
+</head>
+<body>
+  <h1>⚡ koprobe</h1>
+  <div class="sub">Kubernetes Cost Attribution via eBPF — real kernel-level usage, not estimates.</div>
+
+  <span class="badge b-blue">eBPF</span>
+  <span class="badge b-blue">Kubernetes</span>
+  <span class="badge b-green">v0.1.0</span>
+  <span class="badge b-green">Apache 2.0</span>
+
+  <h3>Add Helm repository</h3>
+  <pre>helm repo add koprobe https://mihir99-mk.github.io/koprobe
+helm repo update</pre>
+
+  <h3>Install</h3>
+  <pre>helm install koprobe koprobe/koprobe \
+  --namespace monitoring \
+  --create-namespace \
+  --set cloud.provider=aws \
+  --set cloud.region=us-east-1</pre>
+
+  <h3>Available charts</h3>
+  <pre>helm search repo koprobe
+# NAME              CHART VERSION   APP VERSION   DESCRIPTION
+# koprobe/koprobe   0.1.0           0.1.0         K8s Cost Attribution via eBPF</pre>
+
+  <h3>Configuration</h3>
+  <pre>helm install koprobe koprobe/koprobe \
+  --set cloud.provider=gcp \        # aws | gcp | azure
+  --set cloud.region=us-central1 \
+  --set slack.enabled=true \
+  --set slack.webhookURL=https://hooks.slack.com/...</pre>
+
+  <div class="footer">
+    <a href="https://github.com/Mihir99-mk/koprobe">GitHub</a> &nbsp;·&nbsp;
+    <a href="index.yaml">index.yaml</a> &nbsp;·&nbsp;
+    <a href="koprobe-0.1.0.tgz">koprobe-0.1.0.tgz</a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+apiVersion: v1
+entries:
+  koprobe:
+  - apiVersion: v2
+    appVersion: 0.1.0
+    created: "2026-03-15T16:30:27Z"
+    description: |
+      Kubernetes Cost Attribution via eBPF.
+      Real kernel-level usage measurement — not just resource requests.
+    digest: 910418bf75070aaaf9f4521c5528f0e13741780671637c4c46803cf040ae5be6
+    home: https://github.com/Mihir99-mk/koprobe
+    keywords:
+    - ebpf
+    - cost
+    - finops
+    - kubernetes
+    - observability
+    maintainers:
+    - name: Mihir99-mk
+      url: https://github.com/Mihir99-mk
+    name: koprobe
+    sources:
+    - https://github.com/Mihir99-mk/koprobe
+    type: application
+    urls:
+    - https://mihir99-mk.github.io/koprobe/koprobe-0.1.0.tgz
+    version: 0.1.0
+generated: "2026-03-15T16:30:27Z"
