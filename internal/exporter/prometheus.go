@@ -48,27 +48,27 @@ func (p *PrometheusExporter) handleMetrics(w http.ResponseWriter, r *http.Reques
 			cost.Namespace, cost.PodName, cost.Team, cost.Service, cost.Environment,
 		)
 
-		fmt.Fprintf(w, "kubefinbpf_pod_cost_total{%s} %f\n", labels, cost.TotalCost)
-		fmt.Fprintf(w, "kubefinbpf_pod_cpu_cost{%s} %f\n", labels, cost.CPUCost)
-		fmt.Fprintf(w, "kubefinbpf_pod_memory_cost{%s} %f\n", labels, cost.MemoryCost)
-		fmt.Fprintf(w, "kubefinbpf_pod_network_cost{%s} %f\n", labels, cost.NetworkCost)
-		fmt.Fprintf(w, "kubefinbpf_pod_disk_cost{%s} %f\n", labels, cost.DiskCost)
-		fmt.Fprintf(w, "kubefinbpf_pod_wasted_dollars{%s} %f\n", labels, cost.WastedDollars)
-		fmt.Fprintf(w, "kubefinbpf_pod_cpu_utilization_pct{%s} %f\n", labels, cost.CPUUtilizationPct)
+		fmt.Fprintf(w, "koprobe_pod_cost_total{%s} %f\n", labels, cost.TotalCost)
+		fmt.Fprintf(w, "koprobe_pod_cpu_cost{%s} %f\n", labels, cost.CPUCost)
+		fmt.Fprintf(w, "koprobe_pod_memory_cost{%s} %f\n", labels, cost.MemoryCost)
+		fmt.Fprintf(w, "koprobe_pod_network_cost{%s} %f\n", labels, cost.NetworkCost)
+		fmt.Fprintf(w, "koprobe_pod_disk_cost{%s} %f\n", labels, cost.DiskCost)
+		fmt.Fprintf(w, "koprobe_pod_wasted_dollars{%s} %f\n", labels, cost.WastedDollars)
+		fmt.Fprintf(w, "koprobe_pod_cpu_utilization_pct{%s} %f\n", labels, cost.CPUUtilizationPct)
 
 		// Raw usage metrics
-		fmt.Fprintf(w, "kubefinbpf_pod_network_egress_bytes{%s} %f\n", labels, cost.NetworkEgressGB*float64(1<<30))
-		fmt.Fprintf(w, "kubefinbpf_pod_network_internet_bytes{%s} %f\n", labels, cost.NetworkInternetGB*float64(1<<30))
+		fmt.Fprintf(w, "koprobe_pod_network_egress_bytes{%s} %f\n", labels, cost.NetworkEgressGB*float64(1<<30))
+		fmt.Fprintf(w, "koprobe_pod_network_internet_bytes{%s} %f\n", labels, cost.NetworkInternetGB*float64(1<<30))
 	}
 
 	// Team-level aggregated metrics
 	for team, tc := range snap.TeamCosts {
 		labels := fmt.Sprintf(`team="%s"`, team)
-		fmt.Fprintf(w, "kubefinbpf_team_cost_total{%s} %f\n", labels, tc.TotalCost)
-		fmt.Fprintf(w, "kubefinbpf_team_wasted_dollars{%s} %f\n", labels, tc.WastedCost)
-		fmt.Fprintf(w, "kubefinbpf_team_pod_count{%s} %d\n", labels, tc.PodCount)
+		fmt.Fprintf(w, "koprobe_team_cost_total{%s} %f\n", labels, tc.TotalCost)
+		fmt.Fprintf(w, "koprobe_team_wasted_dollars{%s} %f\n", labels, tc.WastedCost)
+		fmt.Fprintf(w, "koprobe_team_pod_count{%s} %d\n", labels, tc.PodCount)
 	}
 
 	// Cluster total
-	fmt.Fprintf(w, "kubefinbpf_cluster_cost_total %f\n", snap.Total)
+	fmt.Fprintf(w, "koprobe_cluster_cost_total %f\n", snap.Total)
 }

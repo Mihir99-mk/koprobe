@@ -117,20 +117,20 @@ Koprobe exposes Prometheus metrics at `:9090/metrics`:
 
 ```
 # Per-pod costs (15s window)
-kubefinbpf_pod_cost_total{namespace,pod,team,service,env}
-kubefinbpf_pod_cpu_cost{...}
-kubefinbpf_pod_memory_cost{...}
-kubefinbpf_pod_network_cost{...}
-kubefinbpf_pod_disk_cost{...}
-kubefinbpf_pod_wasted_dollars{...}
-kubefinbpf_pod_cpu_utilization_pct{...}
+koprobe_pod_cost_total{namespace,pod,team,service,env}
+koprobe_pod_cpu_cost{...}
+koprobe_pod_memory_cost{...}
+koprobe_pod_network_cost{...}
+koprobe_pod_disk_cost{...}
+koprobe_pod_wasted_dollars{...}
+koprobe_pod_cpu_utilization_pct{...}
 
 # Per-team aggregates
-kubefinbpf_team_cost_total{team}
-kubefinbpf_team_wasted_dollars{team}
+koprobe_team_cost_total{team}
+koprobe_team_wasted_dollars{team}
 
 # Cluster total
-kubefinbpf_cluster_cost_total
+koprobe_cluster_cost_total
 ```
 
 ---

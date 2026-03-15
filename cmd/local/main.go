@@ -361,16 +361,16 @@ func (s *Server) prometheus(w http.ResponseWriter, r *http.Request) {
 	for _, m := range s.store.latest {
 		lbl := fmt.Sprintf(`namespace="%s",pod="%s",team="%s",service="%s"`,
 			m.Namespace, m.PodName, m.Team, m.Service)
-		fmt.Fprintf(w, "kubefinbpf_pod_cost_total{%s} %f\n", lbl, m.TotalCost)
-		fmt.Fprintf(w, "kubefinbpf_pod_cpu_cost{%s} %f\n", lbl, m.CPUCost)
-		fmt.Fprintf(w, "kubefinbpf_pod_memory_cost{%s} %f\n", lbl, m.MemoryCost)
-		fmt.Fprintf(w, "kubefinbpf_pod_network_cost{%s} %f\n", lbl, m.NetworkCost)
-		fmt.Fprintf(w, "kubefinbpf_pod_disk_cost{%s} %f\n", lbl, m.DiskCost)
-		fmt.Fprintf(w, "kubefinbpf_pod_wasted_dollars{%s} %f\n", lbl, m.WastedDollars)
-		fmt.Fprintf(w, "kubefinbpf_pod_cpu_util_pct{%s} %f\n", lbl, m.CPUUtilPct)
+		fmt.Fprintf(w, "koprobe_pod_cost_total{%s} %f\n", lbl, m.TotalCost)
+		fmt.Fprintf(w, "koprobe_pod_cpu_cost{%s} %f\n", lbl, m.CPUCost)
+		fmt.Fprintf(w, "koprobe_pod_memory_cost{%s} %f\n", lbl, m.MemoryCost)
+		fmt.Fprintf(w, "koprobe_pod_network_cost{%s} %f\n", lbl, m.NetworkCost)
+		fmt.Fprintf(w, "koprobe_pod_disk_cost{%s} %f\n", lbl, m.DiskCost)
+		fmt.Fprintf(w, "koprobe_pod_wasted_dollars{%s} %f\n", lbl, m.WastedDollars)
+		fmt.Fprintf(w, "koprobe_pod_cpu_util_pct{%s} %f\n", lbl, m.CPUUtilPct)
 		total += m.TotalCost
 	}
-	fmt.Fprintf(w, "kubefinbpf_cluster_cost_total %f\n", total)
+	fmt.Fprintf(w, "koprobe_cluster_cost_total %f\n", total)
 }
 
 // ────────────────────────────────────────────────────────────────
