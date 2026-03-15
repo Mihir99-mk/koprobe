@@ -1,0 +1,20 @@
+apiVersion: v2
+name: koprobe
+description: |
+  Kubernetes Cost Attribution via eBPF.
+  Real kernel-level usage measurement — not just resource requests.
+type: application
+version: 0.1.0
+appVersion: "0.1.0"
+keywords:
+  - ebpf
+  - cost
+  - finops
+  - kubernetes
+  - observability
+home: https://github.com/Mihir99-mk/koprobe
+sources:
+  - https://github.com/Mihir99-mk/koprobe
+maintainers:
+  - name: koprobe
+    url: https://github.com/Mihir99-mk/koprobe
